@@ -1,19 +1,17 @@
 package com.scalar.demo2.models;
 
-import java.util.Calendar;
-
-public class Products {
+public class Product {
     private Long id ;
     private String title;
     private String description;
     private Double price;
     private String imageUrl;
-    private String category;
+    private Category category;
 
-    public Products() {
+    public Product() {
     }
 
-    public Products(Long id, String title, String description, Double price, String imageUrl, String category) {
+    public Product(Long id, String title, String description, Double price, String imageUrl, Category category) {
         this.id = id;
         this.title = title;
         this.description = description;
