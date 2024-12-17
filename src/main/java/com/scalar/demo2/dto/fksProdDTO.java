@@ -3,13 +3,15 @@ package com.scalar.demo2.dto;
 import com.scalar.demo2.models.Category;
 import com.scalar.demo2.models.Product;
 
+
+// like an identical twin of product obj which is the version needed to be sent to fakestore;
 public class fksProdDTO {
-    Long id;
-    String title;
-    Double price;
-    String description;
-    String Category;
-    String Image;
+    private Long id;
+    private String title;
+    private Double price;
+    private String description;
+    private String Category;
+    private String Image;
 
     public Long getId() {
         return id;
@@ -59,6 +61,8 @@ public class fksProdDTO {
         Image = image;
     }
 
+
+    // method to convert all the values into prodct obj format and send it to client
     public Product toProduct(){
         Product p = new Product();
         p.setId(id);
