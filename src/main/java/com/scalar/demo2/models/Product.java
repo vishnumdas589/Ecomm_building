@@ -1,18 +1,21 @@
 package com.scalar.demo2.models;
 
-public class Product {
-    private Long id ;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Product extends BaseModel{
     private String title;
     private String description;
     private Double price;
     private String imageUrl;
+    @ManyToOne
     private Category category;
 
     public Product() {
     }
 
-    public Product(Long id, String title, String description, Double price, String imageUrl, Category category) {
-        this.id = id;
+    public Product(String title, String description, Double price, String imageUrl, Category category) {
         this.title = title;
         this.description = description;
         this.price = price;
@@ -20,9 +23,7 @@ public class Product {
         this.category = category;
     }
 
-    public Long getId() {
-        return id;
-    }
+
 
     public String getTitle() {
         return title;
@@ -40,13 +41,10 @@ public class Product {
         return imageUrl;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -64,7 +62,7 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 }

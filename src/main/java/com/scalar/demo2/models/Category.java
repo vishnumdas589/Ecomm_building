@@ -1,28 +1,24 @@
 package com.scalar.demo2.models;
 
-public class Category {
-    private Long catId;
+import jakarta.persistence.Entity;
+
+@Entity
+public class Category extends BaseModel{
+
     private String catName;
 
     public Category() {
     }
 
-    public Category(Long catId, String catName) {
-        this.catId = catId;
+    public Category(String catName) {
         this.catName = catName;
     }
 
-    public Long getCatId() {
-        return catId;
-    }
 
     public String getCatName() {
         return catName;
     }
 
-    public void setCatId(Long catId) {
-        this.catId = catId;
-    }
 
     public void setCatName(String catName) {
         this.catName = catName;
