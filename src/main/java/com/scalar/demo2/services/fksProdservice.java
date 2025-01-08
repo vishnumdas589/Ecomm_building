@@ -9,7 +9,7 @@ import com.scalar.demo2.dto.fksProdDTO;
 
 import java.util.List;
 
-@Service
+@Service("fksProdservice")
 public class fksProdservice implements ProductServices{
 
     RestTemplate rt;
@@ -44,11 +44,11 @@ public class fksProdservice implements ProductServices{
     }
 
     @Override
-    public Product CreateProduct(String title, Long id , String  categoru , Double price)  {
+    public Product CreateProduct(String title,Long Id, String  category, Double price)  {
         fksProdDTO fkpsDTO  = new fksProdDTO();
         fkpsDTO.setTitle(title);
-        fkpsDTO.setId(id);
-        fkpsDTO.setCategory(categoru);
+
+        fkpsDTO.setCategory(category);
         fkpsDTO.setPrice(price);
         fksProdDTO responds = rt.postForObject("https://fakestoreapi.com/products",fkpsDTO,fksProdDTO.class);
         return responds.toProduct();

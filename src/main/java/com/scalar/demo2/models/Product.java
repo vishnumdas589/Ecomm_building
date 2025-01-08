@@ -2,6 +2,11 @@ package com.scalar.demo2.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 @Entity
 public class Product extends BaseModel{
@@ -22,6 +27,7 @@ public class Product extends BaseModel{
         this.imageUrl = imageUrl;
         this.category = category;
     }
+
 
 
 
@@ -66,4 +72,5 @@ public class Product extends BaseModel{
         this.category = category;
     }
 }
+
 
