@@ -1,26 +1,47 @@
 package com.scalar.demo2.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
+
+
 
 @Entity
 public class Category extends BaseModel{
 
     private String catName;
-
-    public Category() {
-    }
-
-    public Category(String catName) {
-        this.catName = catName;
-    }
+    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<Product> Products;
 
 
     public String getCatName() {
         return catName;
     }
 
-
     public void setCatName(String catName) {
         this.catName = catName;
     }
+//
+    public List<Product> getProducts() {
+        return Products;
+    }
+
+    public void setCatProducts(List<Product> Products) {
+        this.Products = Products;
+    }
+
 }
+

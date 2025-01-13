@@ -14,10 +14,10 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     Product findByDescription(String description);
     Product findByPrice(Double price);
 
-    @Query(value = "SELECT * from Product p where p.category_id =: catID",nativeQuery = true)
+    @Query(value = "SELECT * from Product p where p.category_id =:catID",nativeQuery = true)
     List<Product> getProdByCat(@Param("catID") Long CatID);
 
-    @Query(value = "SELECT p.title from Product p where p.category_id =: catID",nativeQuery = true)
+    @Query(value = "SELECT p.title,p.description from Product p where p.category_id =:catID",nativeQuery = true)
     List<ProductProjecton> getProdByCatUsingProjection(@Param("catID") Long CatID);
 
 
