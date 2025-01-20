@@ -31,23 +31,23 @@ public class productController {
         return responds;
 
     }
-    @ExceptionHandler(prodNotFoundException.class)
-    public ResponseEntity<ErrorDTO> prodNotFoundExceptionHandler (Exception e){
-        ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setM(e.getMessage());
-        ResponseEntity<ErrorDTO> responds = new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
-        return responds;
-    }
-    @PostMapping(value = "/product/")
-    public Product PostProduct(@RequestBody Product product){
-        Product p = ps.CreateProduct(product.getTitle(),product.getId(),product.getCategory().getCatName(), product.getPrice());
-        return p;
-    }
     @GetMapping(value = "/products")
     public ResponseEntity<Product[]> getAllProducts() {
         ResponseEntity<Product[]> responds = new ResponseEntity<>(ps.getAllProducts(), HttpStatus.OK);
         return responds;
 
+    }
+
+    @PostMapping(value = "/product")
+    public Product PostProduct(@RequestBody Product product){
+        Product p = ps.CreateProduct(product.getTitle(),product.getId(),product.getCategory().getCatName(), product.getPrice());
+        return p;
+    }
+
+    @PatchMapping(value = "/product/{id}")
+    public ResponseEntity<Product> updateSingleProduct(@PathVariable("id") long id,@RequestBody Product product) throws prodNotFoundException {
+        ResponseEntity<Product> responds = new ResponseEntity<>(ps.updateSingleProduct(id ,product.getTitle(),product.getPrice(),product.getCategory().getCatName()), HttpStatus.OK);
+        return responds;
     }
 
 

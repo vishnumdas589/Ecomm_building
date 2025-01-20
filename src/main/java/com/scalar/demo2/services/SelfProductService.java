@@ -7,6 +7,7 @@ import com.scalar.demo2.repos.*;
 import com.scalar.demo2.repos.projections.ProductRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service("selfProdService")
@@ -50,8 +51,34 @@ public class SelfProductService implements ProductServices{
     }
 
     @Override
-    public Product[] getAllProducts() {
-        return new Product[0];
+    public Product [] getAllProducts() {
+        List<Product> prodList = prodRepo.findAll();
+        Product [] prodArray = prodList.toArray(new Product[prodList.size()]);
+        return prodArray;
     }
+
+    @Override
+    public Product updateSingleProduct(Long id, String title, Double price, String category) throws prodNotFoundException {
+        Category cat = catRepo.findByCatName(category);
+        Optional<Product> prodOp = prodRepo.findById(id);
+        if(prodOp.isPresent()){
+            if(cat == null){
+                Category newCat = new Category();
+                newCat.setCatName(category);
+                catRepo.save(newCat);
+            }
+            Product p = prodOp.get();
+            p.setTitle(title);
+            p.setPrice(price);
+            p.setCategory(cat);
+            prodRepo.save(p);
+            return p;
+
+        }else {
+            throw new prodNotFoundException("product not found with id " + id);
+        }
+
+    }
+
 
 }

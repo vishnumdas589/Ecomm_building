@@ -1,5 +1,7 @@
 package com.scalar.demo2.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,7 +25,9 @@ import java.util.List;
 public class Category extends BaseModel{
 
     private String catName;
+
     @OneToMany(mappedBy = "category",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Product> Products;
 
 

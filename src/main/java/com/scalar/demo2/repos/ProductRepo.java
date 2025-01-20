@@ -14,6 +14,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     Product findByDescription(String description);
     Product findByPrice(Double price);
 
+
     @Query(value = "SELECT * from Product p where p.category_id =:catID",nativeQuery = true)
     List<Product> getProdByCat(@Param("catID") Long CatID);
 

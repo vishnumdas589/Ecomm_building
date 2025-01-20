@@ -1,5 +1,6 @@
 package com.scalar.demo2.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,7 @@ public class Product extends BaseModel{
     private Double price;
     private String imageUrl;
     @ManyToOne
+    @JsonBackReference
     private Category category;
 
     public Product() {

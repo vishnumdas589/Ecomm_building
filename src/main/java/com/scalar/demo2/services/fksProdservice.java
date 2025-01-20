@@ -44,6 +44,17 @@ public class fksProdservice implements ProductServices{
     }
 
     @Override
+    public Product updateSingleProduct(Long id ,String title, Double price, String category) throws prodNotFoundException {
+        fksProdDTO fkpsDTO = new fksProdDTO();
+        fkpsDTO.setTitle(title);
+        fkpsDTO.setPrice(price);
+        fkpsDTO.setCategory(category);
+        fksProdDTO responds = rt.patchForObject("https://fakestoreapi.com/products/" + id,fkpsDTO,fksProdDTO.class);
+        return responds.toProduct();
+
+    }
+
+    @Override
     public Product CreateProduct(String title,Long Id, String  category, Double price)  {
         fksProdDTO fkpsDTO  = new fksProdDTO();
         fkpsDTO.setTitle(title);

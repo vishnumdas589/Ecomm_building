@@ -11,6 +11,6 @@ public interface ProductServices {
      Product getSingleProduct(long id) throws prodNotFoundException;
      Product CreateProduct(String title,Long Id, String  category, Double price);
      Product [] getAllProducts();
-
+     Product updateSingleProduct(Long id,String title,Double price, String  category) throws prodNotFoundException;
 
 }
