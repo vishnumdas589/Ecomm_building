@@ -1,6 +1,7 @@
 package com.scalar.demo2.services;
 
 import com.scalar.demo2.exceptions.prodNotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -30,18 +31,18 @@ public class fksProdservice implements ProductServices{
 
 
     }
-    @Override
-    public Product[] getAllProducts()  {
-        ResponseEntity<fksProdDTO[]> fksdto;
-
-        fksdto  = rt.getForEntity("https://fakestoreapi.com/products", fksProdDTO[].class);
-        fksProdDTO [] fksArray = fksdto.getBody();
-        Product[] fksProducts = new Product[fksArray.length];
-        for (int i = 0; i < fksArray.length; i++) {
-            fksProducts[i] = fksArray[i].toProduct();
-        }
-        return fksProducts;
-    }
+//    @Override
+//    public Product[] getAllProducts()  {
+//        ResponseEntity<fksProdDTO[]> fksdto;
+//
+//        fksdto  = rt.getForEntity("https://fakestoreapi.com/products", fksProdDTO[].class);
+//        fksProdDTO [] fksArray = fksdto.getBody();
+//        Product[] fksProducts = new Product[fksArray.length];
+//        for (int i = 0; i < fksArray.length; i++) {
+//            fksProducts[i] = fksArray[i].toProduct();
+//        }
+//        return fksProducts;
+//    }
 
     @Override
     public Product updateSingleProduct(Long id ,String title, Double price, String category) throws prodNotFoundException {
@@ -63,6 +64,11 @@ public class fksProdservice implements ProductServices{
         fkpsDTO.setPrice(price);
         fksProdDTO responds = rt.postForObject("https://fakestoreapi.com/products",fkpsDTO,fksProdDTO.class);
         return responds.toProduct();
+    }
+
+    @Override
+    public Page<Product> getAllProducts(int pageNumber, int pageSize, String fieldName) {
+        return null;
     }
 }
 

@@ -2,6 +2,7 @@ package com.scalar.demo2.controllers;
 import com.scalar.demo2.exceptions.prodNotFoundException;
 import com.scalar.demo2.services.ProductServices;
 import com.scalar.demo2.models.Product;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ public class productController {
 
     }
     @GetMapping(value = "/products")
-    public ResponseEntity<Product[]> getAllProducts() {
-        ResponseEntity<Product[]> responds = new ResponseEntity<>(ps.getAllProducts(), HttpStatus.OK);
+    public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize,@RequestParam("fieldName") String fieldName) throws prodNotFoundException {
+        Page<Product> responds = ps.getAllProducts(pageNumber,pageSize,fieldName);
         return responds;
 
     }

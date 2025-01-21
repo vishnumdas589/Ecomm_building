@@ -5,6 +5,9 @@ import com.scalar.demo2.models.Product;
 import com.scalar.demo2.repos.categoryRepo;
 import com.scalar.demo2.repos.*;
 import com.scalar.demo2.repos.projections.ProductRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,11 +54,17 @@ public class SelfProductService implements ProductServices{
     }
 
     @Override
-    public Product [] getAllProducts() {
-        List<Product> prodList = prodRepo.findAll();
-        Product [] prodArray = prodList.toArray(new Product[prodList.size()]);
-        return prodArray;
+    public Page<Product> getAllProducts(int pageNumber, int pageSize, String fieldName) {
+        Page<Product> productPage = prodRepo.findAll(PageRequest.of(pageNumber, pageSize, Sort.by(fieldName).ascending()));
+        return productPage;
     }
+
+//    @Override
+//    public Page<Product> getAllProducts() {
+//        List<Product> prodList = prodRepo.findAll();
+//        Product [] prodArray = prodList.toArray(new Product[prodList.size()]);
+//        return prodArray;
+//    }
 
     @Override
     public Product updateSingleProduct(Long id, String title, Double price, String category) throws prodNotFoundException {

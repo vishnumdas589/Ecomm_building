@@ -5,6 +5,7 @@ import com.scalar.demo2.exceptions.prodNotFoundException;
 import com.scalar.demo2.models.Product;
 import com.scalar.demo2.services.ProductServices;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +38,15 @@ public class SelfProductController {
         Product p = ps.CreateProduct(product.getTitle(),product.getId(),product.getCategory().getCatName(), product.getPrice());
         return p;
     }
+//    @GetMapping(value = "/self-products")
+//    public ResponseEntity<Product[]> getAllProducts() {
+//        ResponseEntity<Product[]> responds = new ResponseEntity<>(ps.getAllProducts(), HttpStatus.OK);
+//        return responds;
+//
+//    }
     @GetMapping(value = "/self-products")
-    public ResponseEntity<Product[]> getAllProducts() {
-        ResponseEntity<Product[]> responds = new ResponseEntity<>(ps.getAllProducts(), HttpStatus.OK);
+    public Page<Product> getAllProducts(@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize, @RequestParam("fieldName") String fieldName) throws prodNotFoundException {
+        Page<Product> responds = ps.getAllProducts(pageNumber,pageSize,fieldName);
         return responds;
 
     }
