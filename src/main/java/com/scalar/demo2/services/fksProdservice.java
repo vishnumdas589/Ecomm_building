@@ -2,6 +2,7 @@ package com.scalar.demo2.services;
 
 import com.scalar.demo2.exceptions.prodNotFoundException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -12,9 +13,10 @@ import java.util.List;
 
 @Service("fksProdservice")
 public class fksProdservice implements ProductServices{
-
+    RedisTemplate redisTemplate;
     RestTemplate rt;
-    public fksProdservice(RestTemplate rt) {
+    public fksProdservice(RestTemplate rt, RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
         this.rt = rt;
     }
 
@@ -22,12 +24,19 @@ public class fksProdservice implements ProductServices{
 
     @Override
     public Product getSingleProduct(long id)throws prodNotFoundException {
-        fksProdDTO fkpsDTO = rt.getForObject("https://fakestoreapi.com/products/" + id, fksProdDTO.class);
-        if(fkpsDTO == null){
-            prodNotFoundException prodNotFound = new prodNotFoundException("Product with id " + id + " is not found");
-            throw prodNotFound;
-        }
-        return fkpsDTO.toProduct();
+        Product redisProduct = (Product)redisTemplate.opsForHash().get("Product","Product_"+ id);
+        if (redisProduct != null){
+            return redisProduct;
+        }else{
+            fksProdDTO fkpsDTO = rt.getForObject("https://fakestoreapi.com/products/" + id, fksProdDTO.class);
+            if(fkpsDTO == null){
+                prodNotFoundException prodNotFound = new prodNotFoundException("Product with id " + id + " is not found");
+                throw prodNotFound;
+            }
+            redisTemplate.opsForHash().put("Product","Product_"+ id,fkpsDTO.toProduct());
+
+            return fkpsDTO.toProduct();
+            }
 
 
     }
