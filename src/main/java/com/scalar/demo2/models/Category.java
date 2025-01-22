@@ -26,7 +26,7 @@ public class Category extends BaseModel{
 
     private String catName;
 
-    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Product> Products;
 

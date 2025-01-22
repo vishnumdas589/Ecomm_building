@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface categoryRepo extends JpaRepository<Category, Long> {
     Category findByCatName(String catName);
 
+
+
 }

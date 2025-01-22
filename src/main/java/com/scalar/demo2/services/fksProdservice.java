@@ -56,6 +56,11 @@ public class fksProdservice implements ProductServices{
     }
 
     @Override
+    public String deleteSingleProduct(Long id) throws prodNotFoundException {
+        return null;
+    }
+
+    @Override
     public Product CreateProduct(String title,Long Id, String  category, Double price)  {
         fksProdDTO fkpsDTO  = new fksProdDTO();
         fkpsDTO.setTitle(title);

@@ -13,5 +13,5 @@ public interface ProductServices {
      Product CreateProduct(String title,Long Id, String  category, Double price);
      Page<Product> getAllProducts(int pageNumber, int pageSize,String fieldName);
      Product updateSingleProduct(Long id,String title,Double price, String  category) throws prodNotFoundException;
-
+     String deleteSingleProduct(Long id) throws prodNotFoundException;
 }

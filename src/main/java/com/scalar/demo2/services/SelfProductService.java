@@ -89,5 +89,19 @@ public class SelfProductService implements ProductServices{
 
     }
 
+    @Override
+    public String deleteSingleProduct(Long id) throws prodNotFoundException {
+        Optional<Product> prod = prodRepo.findById(id);
+        Product p;
+        if(prod.isPresent()){
+            p = prod.get();
+            prodRepo.delete(p);
+        }else{
+            throw new prodNotFoundException("product not found with id " + id);
+        }
+        return "product with "+ id +" deleted";
+
+    }
+
 
 }

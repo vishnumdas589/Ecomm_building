@@ -1,4 +1,4 @@
-package com.scalar.demo2.controllers;
+ package com.scalar.demo2.controllers;
 
 import com.scalar.demo2.dto.ErrorDTO;
 import com.scalar.demo2.exceptions.prodNotFoundException;
@@ -51,10 +51,16 @@ public class SelfProductController {
 
     }
 
-    @PatchMapping(value = "/Self-Product/{id}")
+    @PatchMapping(value = "/self-product/{id}")
     public ResponseEntity<Product> updateSingleProduct(@PathVariable("id") long id,@RequestBody Product product) throws prodNotFoundException {
         ResponseEntity<Product> responds = new ResponseEntity<>(ps.updateSingleProduct(id ,product.getTitle(),product.getPrice(),product.getCategory().getCatName()), HttpStatus.OK);
         return responds;
+    }
+
+    @DeleteMapping(value= "/delete-self-product/{id}")
+    public ResponseEntity<String> deleteSingleProduct(@PathVariable("id") long id) throws prodNotFoundException {
+        ResponseEntity<String> response = new ResponseEntity<>(ps.deleteSingleProduct(id),HttpStatus.OK);
+        return response;
     }
 
 
